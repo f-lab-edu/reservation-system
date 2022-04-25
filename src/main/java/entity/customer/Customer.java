@@ -13,11 +13,11 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@Table(name = "customers")
+@Table(name = "customer")
 public class Customer extends Audit {
     @Id
     @GeneratedValue
-    @Column(name = "customer_id")
+    @Column(name = "customerId")
     private Long id;
 
     @Column(length = 10, nullable = false)
@@ -33,7 +33,7 @@ public class Customer extends Audit {
     private String password;
 
     @OneToMany
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn(name = "reservationId")
     private List<Reservation> reservations = new ArrayList<Reservation>();
 
     @Tolerate

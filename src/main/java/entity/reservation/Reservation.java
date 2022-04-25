@@ -17,16 +17,16 @@ import static javax.persistence.EnumType.STRING;
 @Entity
 @Getter
 @Builder
-@Table(name = "reservations")
+@Table(name = "reservation")
 public class Reservation extends Audit {
 
     @Id
     @GeneratedValue
-    @Column(name = "reservation_id")
+    @Column(name = "reservationId")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
+    @JoinColumn(name = "customerId", insertable = false, updatable = false)
     private Customer customer;
 
     @Setter
