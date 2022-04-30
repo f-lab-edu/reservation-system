@@ -23,8 +23,8 @@ public class Store extends Audit {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(targetEntity = Company.class)
-    @JoinColumn(nullable = false, name = "company_id")
+    @ManyToOne
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private Company company; //com
 
     @Enumerated(EnumType.STRING)
@@ -46,7 +46,8 @@ public class Store extends Audit {
     @Column(nullable = false, name="phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "OperationTime")
+    @OneToMany
+    @Column(name = "operation_time_id")
     private List<OperationTime> operationTimes = new ArrayList<>();
 
     public Store() {}
