@@ -53,7 +53,7 @@ public class Store extends Audit {
     public Store() {}
 
     @Builder
-    public Store of (
+    public static Store of(
             String name,
             StoreCategory storeCategory,
             String description,
