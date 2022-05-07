@@ -1,7 +1,6 @@
 package com.reservation.reservationsystem.entity.store;
 
 import com.reservation.reservationsystem.entity.Audit;
-import entity.*;
 import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.contstants.StoreCategory;
 import lombok.Builder;
