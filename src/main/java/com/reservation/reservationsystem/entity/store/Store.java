@@ -1,19 +1,8 @@
-<<<<<<< HEAD:src/main/java/com/reservation/reservationsystem/entity/store/Store.java
 package com.reservation.reservationsystem.entity.store;
 
 import com.reservation.reservationsystem.entity.Audit;
 import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.contstants.StoreCategory;
-=======
-package entity.store;
-
-import entity.*;
-import entity.Address;
-import entity.Company;
-import entity.Location;
-import entity.OperationTime;
-import entity.StoreCategory;
->>>>>>> 3a3ffa0 (OperationTime 수정):src/main/java/entity/store/Store.java
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,14 +42,9 @@ public class Store extends Audit {
     @Column(nullable = false)
     private Location location;
 
-<<<<<<< HEAD:src/main/java/com/reservation/reservationsystem/entity/store/Store.java
     @Setter
     @Column(nullable = false, name="phone_number")
     private String phoneNumber;
-=======
-    @Column(nullable = false)
-    private String phonenumber;
->>>>>>> 3a3ffa0 (OperationTime 수정):src/main/java/entity/store/Store.java
 
     @OneToMany
     @JoinColumn(name = "operation_time_id")
