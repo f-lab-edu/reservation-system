@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,14 @@ import java.util.List;
 public class Store extends Audit {
 
     @Id @GeneratedValue
+    @NotNull
     private Long id;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(targetEntity = Company.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "company_id")
     private Company company;
 
@@ -72,4 +74,5 @@ public class Store extends Audit {
                 .phoneNumber(phoneNumber)
                 .build();
     }
+
 }
