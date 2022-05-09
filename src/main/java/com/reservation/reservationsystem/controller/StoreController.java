@@ -14,7 +14,7 @@ public class StoreController {
 
     private final StoreService storeService;
 
-    @PostMapping("/stores/{email}")
+    @PostMapping("/stores/{id}")
     public ResponseEntity.BodyBuilder save(@PathVariable(name = "id") Long companyId, @Valid @RequestBody StoreRequestDto dto) {
         this.storeService.save(dto, companyId);
         return ResponseEntity.ok();
