@@ -1,6 +1,6 @@
 package com.reservation.reservationsystem.service;
 
-import com.reservation.reservationsystem.dto.StoreRequestDto;
+import com.reservation.reservationsystem.dto.store.StoreRequestDto;
 import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.store.Store;
 import com.reservation.reservationsystem.repository.CompanyRepository;
@@ -19,12 +19,12 @@ public class StoreService {
     private final CompanyRepository companyRepository;
 
     public void save(StoreRequestDto dto, Long companyId){
-        Optional<Company> company = companyRepository.findById(companyId);
-
+        Optional<Company> OptionalCompany = companyRepository.findById(companyId);
         Store store = dto.toEntity();
 
-        company.ifPresent(s -> {
-            company.get().addStore(store);
+        OptionalCompany.ifPresent(s -> {
+            Company company =OptionalCompany.get();
+            store.setCompany(company);
             storeRepository.save(store);
         });
     }

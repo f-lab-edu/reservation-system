@@ -28,7 +28,6 @@ public class Company extends Audit {
     @Column(length = 11, nullable = false)
     private String phoneNumber;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id")
     private Set<Store> stores = new HashSet<>();

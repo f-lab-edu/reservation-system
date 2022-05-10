@@ -1,10 +1,8 @@
-package com.reservation.reservationsystem.dto;
+package com.reservation.reservationsystem.dto.store;
 
-import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.contstants.StoreCategory;
 import com.reservation.reservationsystem.entity.store.Address;
 import com.reservation.reservationsystem.entity.store.Location;
-import com.reservation.reservationsystem.entity.store.OperationTime;
 import com.reservation.reservationsystem.entity.store.Store;
 import lombok.Builder;
 import lombok.Getter;
