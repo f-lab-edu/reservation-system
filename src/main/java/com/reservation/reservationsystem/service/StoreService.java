@@ -24,9 +24,9 @@ public class StoreService {
         Store store = dto.toEntity();
 
         company.ifPresent(s -> {
-                    company.get().addStore(store);
-                    storeRepository.save(store);
-                });
+            company.get().addStore(store);
+            storeRepository.save(store);
+        });
     }
 
 }

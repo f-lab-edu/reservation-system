@@ -25,8 +25,8 @@ import java.util.Set;
 @Builder
 public class Store extends Audit {
 
-    @Id @GeneratedValue
-    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -34,7 +34,7 @@ public class Store extends Audit {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "company_id")
+    @JoinColumn(name = "company_id")
     private Company company;
 
     @Enumerated(EnumType.STRING)
