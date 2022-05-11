@@ -9,14 +9,21 @@ import com.reservation.reservationsystem.entity.store.Store;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 @Getter
 public class StoreRequestDto {
 
+    @NotBlank(message = "이름을 작성해주세요.")
     private String name;
+
     private StoreCategory category;
     private String description;
     private Address address;
     private Location location;
+
+    @Pattern(regexp = "[0=9]{11}", message = "11자리의 숫자만 입력 가능합니다.")
     private String phoneNumber;
 
     @Builder

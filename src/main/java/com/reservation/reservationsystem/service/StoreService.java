@@ -11,22 +11,24 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class StoreService {
 
     private final StoreRepository storeRepository;
     private final CompanyRepository companyRepository;
 
-    public void save(StoreRequestDto dto, Long companyId){
+    @Transactional
+    public Long save(Long companyId, StoreRequestDto dto){
         Optional<Company> OptionalCompany = companyRepository.findById(companyId);
         Store store = dto.toEntity();
 
         OptionalCompany.ifPresent(s -> {
-            Company company =OptionalCompany.get();
+            Company company = OptionalCompany.get();
             store.setCompany(company);
             storeRepository.save(store);
         });
+
+        return store.getId();
     }
 
 }
