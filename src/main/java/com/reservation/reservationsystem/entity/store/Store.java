@@ -95,11 +95,12 @@ public class Store extends Audit {
         }
         this.menus.add(menu);
     }
-
+  
     public void setCompany(Company company){
         if (company == null) {
                 throw new NullPointerException();
         }
         this.company = company;
     }
+
 }
