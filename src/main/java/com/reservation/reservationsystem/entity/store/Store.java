@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,16 +25,17 @@ import java.util.Set;
 @Builder
 public class Store extends Audit {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(targetEntity = Company.class)
-    @JoinColumn(nullable = false, name = "company_id")
-    private Company company; //com
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -93,4 +95,12 @@ public class Store extends Audit {
         }
         this.menus.add(menu);
     }
+  
+    public void setCompany(Company company){
+        if (company == null) {
+                throw new NullPointerException();
+        }
+        this.company = company;
+    }
+
 }

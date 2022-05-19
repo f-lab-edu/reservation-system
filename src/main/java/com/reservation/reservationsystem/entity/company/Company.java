@@ -5,7 +5,6 @@ import com.reservation.reservationsystem.entity.store.Store;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Tolerate;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
