@@ -1,8 +1,11 @@
-package entity.reservation;
+package com.reservation.reservationsystem.entity.reservation;
+
+import com.reservation.reservationsystem.entity.menu.Menu;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "reservation_menu")
 public class ReservationMenu {
 
     @Id
