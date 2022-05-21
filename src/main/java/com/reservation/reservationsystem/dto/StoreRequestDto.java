@@ -23,7 +23,7 @@ public class StoreRequestDto {
     private Address address;
     private Location location;
 
-    @Pattern(regexp = "[0=9]{11}", message = "11자리의 숫자만 입력 가능합니다.")
+    @Pattern(regexp = "^\\d{10}$", message = "11자리의 숫자만 입력 가능합니다.")
     private String phoneNumber;
 
     @Builder
