@@ -97,10 +97,13 @@ public class Store extends Audit {
     }
   
     public void setCompany(Company company){
-        if (company == null) {
-                throw new NullPointerException();
+        if (this.company != null) {
+            this.company.getStores().remove(this);
         }
         this.company = company;
+        if(!company.getStores().contains(this)) {
+            company.getStores().add(this);
+        }
     }
 
 }
