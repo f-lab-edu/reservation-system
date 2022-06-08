@@ -1,5 +1,6 @@
-package com.reservation.reservationsystem.repository;
+package com.reservation.reservationsystem.repository.menu;
 
+import com.reservation.reservationsystem.config.QuerydslConfiguration;
 import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.contstants.StoreCategory;
 import com.reservation.reservationsystem.entity.menu.Menu;
@@ -14,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ActiveProfiles("local")
 @ExtendWith(SpringExtension.class)
+@Import(QuerydslConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class MenuRepositoryTest {
@@ -59,6 +62,8 @@ class MenuRepositoryTest {
         );
         store.addMenu(menu);
 
+        entityManager.persist(company);
+        store.setCompany(company);
         entityManager.persist(store);
 
         // When

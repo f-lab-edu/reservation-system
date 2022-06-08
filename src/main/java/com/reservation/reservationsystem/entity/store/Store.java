@@ -1,12 +1,13 @@
 package com.reservation.reservationsystem.entity.store;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.reservation.reservationsystem.entity.Audit;
 import com.reservation.reservationsystem.entity.menu.Menu;
 import com.reservation.reservationsystem.entity.company.Company;
 import com.reservation.reservationsystem.entity.contstants.StoreCategory;
+import com.reservation.reservationsystem.exception.DuplicateEntityException;
+import com.reservation.reservationsystem.exception.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,19 +22,20 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "store")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Builder
 public class Store extends Audit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue
+    @Column(name = "store_id")
     private Long id;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false, updatable = false)
+    @ManyToOne(targetEntity = Company.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false, name = "company_id")
     private Company company;
 
     @Enumerated(EnumType.STRING)
@@ -41,7 +43,6 @@ public class Store extends Audit {
     private StoreCategory category;
 
     @Setter
-    @Column(length = 80)
     private String description;
 
     @Column(nullable = false)
@@ -60,7 +61,7 @@ public class Store extends Audit {
     @JoinColumn(name = "operation_time_id")
     private List<OperationTime> operationTimes = new ArrayList<>();
 
-    @OneToMany(cascade =CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "menu_id")
     private Set<Menu> menus = new HashSet<>();
 
@@ -93,17 +94,18 @@ public class Store extends Audit {
         if (menus == null) {
             this.menus = new HashSet<>();
         }
+
+        menu.setStore(this);
+        if (menus.contains(menu)) {
+            throw new DuplicateEntityException(ErrorCode.DUPLICATE_ENTITY);
+        }
         this.menus.add(menu);
     }
-  
-    public void setCompany(Company company){
-        if (this.company != null) {
-            this.company.getStores().remove(this);
+
+    public void setCompany(Company company) {
+        if (company == null) {
+            throw new EntityExistsException();
         }
         this.company = company;
-        if(!company.getStores().contains(this)) {
-            company.getStores().add(this);
-        }
     }
-
 }

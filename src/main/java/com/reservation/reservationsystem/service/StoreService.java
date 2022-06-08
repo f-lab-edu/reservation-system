@@ -1,32 +1,33 @@
 package com.reservation.reservationsystem.service;
 
-import com.reservation.reservationsystem.dto.StoreRequestDto;
-import com.reservation.reservationsystem.entity.company.Company;
+import com.reservation.reservationsystem.entity.menu.Menu;
 import com.reservation.reservationsystem.entity.store.Store;
-import com.reservation.reservationsystem.exception.CustomException;
 import com.reservation.reservationsystem.exception.ErrorCode;
-import com.reservation.reservationsystem.repository.CompanyRepository;
-import com.reservation.reservationsystem.repository.StoreRepository;
+import com.reservation.reservationsystem.exception.NotFoundEntityException;
+import com.reservation.reservationsystem.repository.store.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.Optional;
+
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class StoreService {
 
     private final StoreRepository storeRepository;
-    private final CompanyRepository companyRepository;
 
-    @Transactional
-    public Long save(Long companyId, StoreRequestDto dto) {
-        System.out.println(companyId);
-        Company company = companyRepository.findById(companyId).orElseThrow(() -> new CustomException(ErrorCode.COMPANY_NOT_FOUND));
-        Store store = dto.toEntity();
-        store.setCompany(company);
-        storeRepository.save(store);
+    public Store getDetail(Long storeId) throws NotFoundEntityException {
+        Store store = storeRepository.findById(
+                storeId).orElseThrow(() -> new NotFoundEntityException(ErrorCode.NOT_FOUND_ENTITY)
+        );
+        return store;
+    }
 
-        return store.getId();
+    public Set<Menu> getMenu(Long storeId) throws NotFoundEntityException {
+        Store store = storeRepository.findById(storeId).orElseThrow(
+                () -> new NotFoundEntityException(ErrorCode.NOT_FOUND_ENTITY)
+        );
+        Set<Menu> menus = store.getMenus();
+        return menus;
     }
 }

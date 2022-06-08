@@ -1,5 +1,7 @@
 package com.reservation.reservationsystem.entity.company;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.reservation.reservationsystem.entity.Audit;
 import com.reservation.reservationsystem.entity.store.Store;
 import lombok.Builder;
@@ -12,6 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "company")
 public class Company extends Audit {
     @Id
@@ -28,8 +31,8 @@ public class Company extends Audit {
     @Column(length = 11, nullable = false)
     private String phoneNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id")
+    @OneToMany
+    @JoinColumn(name = "store_id", insertable=false, updatable = false)
     private Set<Store> stores = new HashSet<>();
 
     @Tolerate
@@ -55,5 +58,6 @@ public class Company extends Audit {
             this.stores = new HashSet<>();
         }
         this.stores.add(store);
+        store.setCompany(this);
     }
 }

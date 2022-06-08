@@ -2,13 +2,14 @@ package com.reservation.reservationsystem.exception;
 
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class CustomException extends RuntimeException {
+public class CustomException extends RuntimeException implements Serializable {
 
-    private final ErrorCode code;
+    private final ErrorCode errorCode;
 
-    public CustomException(ErrorCode code) {
-        this.code = code;
+    public CustomException(ErrorCode errorCode) {
+        this.errorCode = errorCode;
     }
-
 }
